@@ -1,0 +1,19 @@
+services:
+  bWAPP:
+    image: "hackersploit/bwapp-docker"
+    user: root
+    ports:
+      - "80:80"
+    security_opt:
+      - seccomp=./seccomp-profiles/bwapp-seccomp.json
+  FALCO:
+    image: "falcosecurity/falco:0.42.0"
+    privileged: true
+    command: ["falco", "-U"]
+    volumes:
+      - /sys/kernel/tracing:/sys/kernel/tracing:ro
+      - /var/run/docker.sock:/host/var/run/docker.sock
+      - /proc:/host/proc:ro
+      - /etc:/host/etc:ro
+    logging:
+      driver: "json-file"
