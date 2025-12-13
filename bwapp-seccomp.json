@@ -1,0 +1,30 @@
+{
+  "defaultAction": "SCMP_ACT_ALLOW",
+  "archMap": [
+    {
+      "architecture": "SCMP_ARCH_X86_64",
+      "subArchitectures": [
+        "SCMP_ARCH_X86",
+        "SCMP_ARCH_X32"
+      ]
+    }
+  ],
+  "syscalls": [
+    {
+      "names": ["splice", "vmsplice", "tee"],
+      "action": "SCMP_ACT_ERRNO",
+      "args": [],
+      "comment": "Block pipe-based syscalls (для Dirty Pipe-подобных техник и экспериментов)",
+      "includes": {},
+      "excludes": {}
+    },
+    {
+      "names": ["ptrace", "bpf", "unshare", "mount"],
+      "action": "SCMP_ACT_ERRNO",
+      "args": [],
+      "comment": "Запрет потенциально опасных системных вызовов",
+      "includes": {},
+      "excludes": {}
+    }
+  ]
+}
