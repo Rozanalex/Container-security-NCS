@@ -4,6 +4,9 @@ services:
     user: root
     ports:
       - "80:80"
+#    privileged: true
+    cap_add:
+      - ALL
     security_opt:
       - seccomp=./seccomp-profiles/bwapp-seccomp.json
   FALCO:
@@ -15,5 +18,6 @@ services:
       - /var/run/docker.sock:/host/var/run/docker.sock
       - /proc:/host/proc:ro
       - /etc:/host/etc:ro
+      - ./falco-rules/falco_rules.local.yaml:/etc/falco/falco_rules.local.yaml:ro
     logging:
       driver: "json-file"

@@ -1,0 +1,38 @@
+{
+  "defaultAction": "SCMP_ACT_ALLOW",
+  "archMap": [
+    {
+      "architecture": "SCMP_ARCH_X86_64",
+      "subArchitectures": [
+        "SCMP_ARCH_X86",
+        "SCMP_ARCH_X32"
+      ]
+    }
+  ],
+  "syscalls": [
+    {
+      "names": ["setns", "unshare", "clone3"],
+      "action": "SCMP_ACT_ERRNO",
+      "args": [],
+      "comment": "Prohibit the management of namespaces from the container",
+      "includes": {},
+      "excludes": {}
+    },
+    {
+      "names": ["mount", "umount2", "pivot_root"],
+      "action": "SCMP_ACT_ERRNO",
+      "args": [],
+      "comment": "We forbid mounting anything new.",
+      "includes": {},
+      "excludes": {}
+    },
+    {
+      "names": ["ptrace", "bpf"],
+      "action": "SCMP_ACT_ERRNO",
+      "args": [],
+      "comment": "We have removed tools that are necessary for operation.",
+      "includes": {},
+      "excludes": {}
+    }
+  ]
+}
